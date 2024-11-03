@@ -59,3 +59,24 @@ body {
     width: 13%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
 }
+
+.combat-log {
+    width: 30%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    margin: 0 20px;
+    text-align: center;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+.combat-log h3 {
+    margin-top: 0;
+}
+
+.combat-log div {
+    font-size: 14px;
+    color: #333;
+}
+

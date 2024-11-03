@@ -72,10 +72,80 @@ const getNumRandom = () => Math.floor(Math.random() * 1001) + 1;
 // Función de combate
 // Tabla de efectividad entre tipos
 const tablaEfectividad = {
-    acero: {acero: 0.5, agua: 0.5, bicho: 1, dragón: 0.5, eléctrico: 0.5, fantasma: 1, fuego: 0.5, hielo: 2, lucha: 1, normal: 1, planta: 1, psíquico: 1, roca: 2, siniestro: 1, tierra: 1, veneno: 0.5, volador: 1, hada: 2},
-    agua: {fuego: 2, agua: 0.5, planta: 0.5, tierra: 2, roca: 2, dragón: 0.5, acero: 1, eléctrico: 1},
-    
+    acero: {
+        acero: 0.5, agua: 0.5, bicho: 1, dragón: 0.5, eléctrico: 0.5, fantasma: 1, fuego: 0.5, hielo: 2, lucha: 1, 
+        normal: 1, planta: 1, psíquico: 1, roca: 2, siniestro: 1, tierra: 1, veneno: 0.5, volador: 1, hada: 2
+    },
+    agua: {
+        fuego: 2, agua: 0.5, planta: 0.5, tierra: 2, roca: 2, dragón: 0.5, acero: 1, eléctrico: 1, bicho: 1, 
+        fantasma: 1, lucha: 1, normal: 1, psíquico: 1, siniestro: 1, veneno: 1, volador: 1, hielo: 1, hada: 1
+    },
+    bicho: {
+        planta: 2, psíquico: 2, siniestro: 2, fuego: 0.5, lucha: 0.5, veneno: 0.5, volador: 0.5, acero: 0.5,
+        agua: 1, bicho: 1, dragón: 1, eléctrico: 1, fantasma: 0.5, hielo: 1, normal: 1, roca: 1, tierra: 1, hada: 0.5
+    },
+    dragón: {
+        dragón: 2, acero: 0.5, hada: 0, fuego: 1, agua: 1, planta: 1, eléctrico: 1, bicho: 1, fantasma: 1, 
+        lucha: 1, normal: 1, psíquico: 1, roca: 1, siniestro: 1, veneno: 1, volador: 1, hielo: 1, tierra: 1
+    },
+    eléctrico: {
+        agua: 2, volador: 2, tierra: 0, planta: 0.5, eléctrico: 0.5, acero: 1, dragón: 0.5, bicho: 1, fantasma: 1,
+        fuego: 1, lucha: 1, hielo: 1, normal: 1, psíquico: 1, roca: 1, siniestro: 1, veneno: 1, hada: 1
+    },
+    fantasma: {
+        psíquico: 2, fantasma: 2, normal: 0, siniestro: 0.5, acero: 1, agua: 1, bicho: 1, dragón: 1, eléctrico: 1,
+        fuego: 1, hielo: 1, lucha: 1, planta: 1, roca: 1, tierra: 1, veneno: 1, volador: 1, hada: 1
+    },
+    fuego: {
+        planta: 2, hielo: 2, bicho: 2, acero: 2, agua: 0.5, roca: 0.5, fuego: 0.5, dragón: 0.5, tierra: 1,
+        eléctrico: 1, fantasma: 1, lucha: 1, normal: 1, psíquico: 1, siniestro: 1, veneno: 1, volador: 1, hada: 1
+    },
+    hada: {
+        dragón: 2, lucha: 2, siniestro: 2, fuego: 0.5, veneno: 0.5, acero: 0.5, agua: 1, bicho: 1, eléctrico: 1,
+        fantasma: 1, hielo: 1, normal: 1, planta: 1, psíquico: 1, roca: 1, tierra: 1, volador: 1, hada: 1
+    },
+    hielo: {
+        planta: 2, tierra: 2, volador: 2, dragón: 2, fuego: 0.5, agua: 0.5, hielo: 0.5, acero: 0.5, bicho: 1, 
+        eléctrico: 1, fantasma: 1, lucha: 1, normal: 1, psíquico: 1, roca: 1, siniestro: 1, veneno: 1, hada: 1
+    },
+    lucha: {
+        normal: 2, hielo: 2, roca: 2, siniestro: 2, acero: 2, veneno: 0.5, volador: 0.5, psíquico: 0.5, bicho: 0.5,
+        hada: 0.5, fantasma: 0, agua: 1, dragón: 1, eléctrico: 1, fuego: 1, lucha: 1, planta: 1, tierra: 1
+    },
+    normal: {
+        roca: 0.5, fantasma: 0, acero: 0.5, agua: 1, bicho: 1, dragón: 1, eléctrico: 1, fuego: 1, hielo: 1,
+        lucha: 1, planta: 1, psíquico: 1, siniestro: 1, tierra: 1, veneno: 1, volador: 1, hada: 1
+    },
+    planta: {
+        agua: 2, tierra: 2, roca: 2, fuego: 0.5, planta: 0.5, veneno: 0.5, volador: 0.5, bicho: 0.5, dragón: 0.5,
+        acero: 0.5, eléctrico: 1, fantasma: 1, hielo: 1, lucha: 1, normal: 1, psíquico: 1, siniestro: 1, hada: 1
+    },
+    psíquico: {
+        lucha: 2, veneno: 2, psíquico: 0.5, acero: 0.5, siniestro: 0, agua: 1, bicho: 1, dragón: 1, eléctrico: 1,
+        fantasma: 1, fuego: 1, hielo: 1, normal: 1, planta: 1, roca: 1, tierra: 1, volador: 1, hada: 1
+    },
+    roca: {
+        fuego: 2, hielo: 2, volador: 2, bicho: 2, lucha: 0.5, tierra: 0.5, acero: 0.5, agua: 1, dragón: 1,
+        eléctrico: 1, fantasma: 1, normal: 1, planta: 1, psíquico: 1, roca: 1, siniestro: 1, veneno: 1, hada: 1
+    },
+    siniestro: {
+        psíquico: 2, fantasma: 2, lucha: 0.5, siniestro: 0.5, hada: 0.5, acero: 1, agua: 1, bicho: 1, dragón: 1,
+        eléctrico: 1, fuego: 1, hielo: 1, normal: 1, planta: 1, roca: 1, tierra: 1, veneno: 1, volador: 1
+    },
+    tierra: {
+        fuego: 2, eléctrico: 2, veneno: 2, roca: 2, acero: 2, planta: 0.5, bicho: 0.5, volador: 0, agua: 1,
+        dragón: 1, fantasma: 1, hielo: 1, lucha: 1, normal: 1, psíquico: 1, siniestro: 1, hada: 1
+    },
+    veneno: {
+        planta: 2, hada: 2, veneno: 0.5, tierra: 0.5, roca: 0.5, fantasma: 0.5, acero: 0, agua: 1, bicho: 1,
+        dragón: 1, eléctrico: 1, fuego: 1, hielo: 1, lucha: 1, normal: 1, psíquico: 1, volador: 1, siniestro: 1
+    },
+    volador: {
+        planta: 2, lucha: 2, bicho: 2, eléctrico: 0.5, roca: 0.5, acero: 0.5, agua: 1, dragón: 1, fantasma: 1,
+        fuego: 1, hielo: 1, normal: 1, psíquico: 1, tierra: 1, veneno: 1, siniestro: 1, hada: 1
+    }
 };
+
 
 // Obtener multiplicador de tipo
 const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
@@ -98,7 +168,18 @@ const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
 //Se turnarán los pokemon hasta que haya un ganador
 //Mostrar el ganador
 
-// Función de combate
+// Elemento del historial de combate
+const historialCombate = document.querySelector('#historialCombate');
+
+// Función para registrar los movimientos en el historial
+function registrarMovimiento(mensaje) {
+    const movimiento = document.createElement('p');
+    movimiento.textContent = mensaje;
+    historialCombate.appendChild(movimiento);
+    historialCombate.scrollTop = historialCombate.scrollHeight; // Desplaza hacia el último movimiento
+}
+
+// Función de combate actualizada
 const combate = (tipoAtaque) => {
     // Obtener estadísticas
     let vidaPropia = parseInt(vidaProp.innerHTML);
@@ -113,50 +194,59 @@ const combate = (tipoAtaque) => {
     let defensaRival = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
     let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisProp.innerHTML) : parseInt(defensaEspProp.innerHTML);
 
-    // Obtener tipos de Pokémon
-    const tipoPropio1 = tipo1Prop.innerHTML.toLowerCase();
-    const tipoPropio2 = tipo2Prop.innerHTML.toLowerCase();
-    const tipoRival1 = tipo1Rival.innerHTML.toLowerCase();
-    const tipoRival2 = tipo2Rival.innerHTML.toLowerCase();
+    // Registra el movimiento inicial del propio Pokémon
+    registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
+    
+    if (velocidadPropia >= velocidadDelRival) {
+        // El propio Pokémon ataca primero
+        let danoAlRival = Math.max(atkPropio - defensaRival, 1);
+        vidaDelRival -= danoAlRival;
+        vidaRival.innerHTML = vidaDelRival;
+        registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
-    // Obtener multiplicadores de efectividad
-    const multiplicador1 = obtenerMultiplicador(tipoPropio1, tipoRival1);
-    const multiplicador2 = tipoRival2 ? obtenerMultiplicador(tipoPropio1, tipoRival2) : 1;
-    const multiplicadorFinalPropio = multiplicador1 * multiplicador2;
+        // Verificar si el rival fue derrotado
+        if (vidaDelRival <= 0) {
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return;
+        }
 
-    // Calcular daño con mínimo de 1
-    const calcularDanio = (ataque, defensa, multiplicador) => Math.max((ataque - defensa) * multiplicador, 1);
+        // Contraataque del rival
+        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+        vidaPropia -= danoAPropio;
+        vidaProp.innerHTML = vidaPropia;
+        registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
 
-    // Ciclo de combate
-    while (vidaPropia > 0 && vidaDelRival > 0) {
-        if (velocidadPropia >= velocidadDelRival) {
-            const danioAlRival = calcularDanio(atkPropio, defensaRival, multiplicadorFinalPropio);
-            vidaDelRival -= danioAlRival;
-            vidaRival.innerHTML = vidaDelRival;
-            if (vidaDelRival <= 0) break;
+        // Verificar si el propio Pokémon fue derrotado
+        if (vidaPropia <= 0) {
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return;
+        }
+    } else {
+        // El Pokémon rival ataca primero
+        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+        vidaPropia -= danoAPropio;
+        vidaProp.innerHTML = vidaPropia;
+        registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
 
-            const danioAlPropio = calcularDanio(atkRival, defensaPropia, 1); // Puedes agregar lógica similar para el ataque del rival
-            vidaPropia -= danioAlPropio;
-            vidaProp.innerHTML = vidaPropia;
-        } else {
-            const danioAlPropio = calcularDanio(atkRival, defensaPropia, 1);
-            vidaPropia -= danioAlPropio;
-            vidaProp.innerHTML = vidaPropia;
-            if (vidaPropia <= 0) break;
+        // Verificar si el propio Pokémon fue derrotado
+        if (vidaPropia <= 0) {
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return;
+        }
 
-            const danioAlRival = calcularDanio(atkPropio, defensaRival, multiplicadorFinalPropio);
-            vidaDelRival -= danioAlRival;
-            vidaRival.innerHTML = vidaDelRival;
+        // El propio Pokémon ataca después del rival
+        let danoAlRival = Math.max(atkPropio - defensaRival, 1);
+        vidaDelRival -= danoAlRival;
+        vidaRival.innerHTML = vidaDelRival;
+        registrarMovimiento(`${nombreProp.innerHTML} contraataca y causa ${danoAlRival} de daño`);
+
+        // Verificar si el rival fue derrotado
+        if (vidaDelRival <= 0) {
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return;
         }
     }
-
-    if (vidaPropia > 0) {
-        alert("¡Tu Pokémon ha ganado el combate!");
-    } else {
-        alert("El Pokémon rival ha ganado el combate.");
-    }
 };
-
 
 // Eventos para elegir el tipo de ataque
 btnElegir.addEventListener('click', obtenerPokePropio);
