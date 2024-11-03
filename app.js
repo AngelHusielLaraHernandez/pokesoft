@@ -194,57 +194,62 @@ const combate = (tipoAtaque) => {
     let defensaRival = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
     let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisProp.innerHTML) : parseInt(defensaEspProp.innerHTML);
 
-    // Registra el movimiento inicial del propio Pokémon
+    // Registrar movimiento inicial del propio Pokémon
     registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
     
     if (velocidadPropia >= velocidadDelRival) {
         // El propio Pokémon ataca primero
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
         vidaDelRival -= danoAlRival;
+        if (vidaDelRival <= 0) {
+            vidaDelRival = 0;
+            vidaRival.innerHTML = vidaDelRival;
+            registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return; // Termina el combate
+        }
         vidaRival.innerHTML = vidaDelRival;
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
-
-        // Verificar si el rival fue derrotado
-        if (vidaDelRival <= 0) {
-            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
-            return;
-        }
 
         // Contraataque del rival
         let danoAPropio = Math.max(atkRival - defensaPropia, 1);
         vidaPropia -= danoAPropio;
+        if (vidaPropia <= 0) {
+            vidaPropia = 0;
+            vidaProp.innerHTML = vidaPropia;
+            registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return; // Termina el combate
+        }
         vidaProp.innerHTML = vidaPropia;
         registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
 
-        // Verificar si el propio Pokémon fue derrotado
-        if (vidaPropia <= 0) {
-            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
-            return;
-        }
     } else {
         // El Pokémon rival ataca primero
         let danoAPropio = Math.max(atkRival - defensaPropia, 1);
         vidaPropia -= danoAPropio;
+        if (vidaPropia <= 0) {
+            vidaPropia = 0;
+            vidaProp.innerHTML = vidaPropia;
+            registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return; // Termina el combate
+        }
         vidaProp.innerHTML = vidaPropia;
         registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
-
-        // Verificar si el propio Pokémon fue derrotado
-        if (vidaPropia <= 0) {
-            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
-            return;
-        }
 
         // El propio Pokémon ataca después del rival
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
         vidaDelRival -= danoAlRival;
+        if (vidaDelRival <= 0) {
+            vidaDelRival = 0;
+            vidaRival.innerHTML = vidaDelRival;
+            registrarMovimiento(`${nombreProp.innerHTML} contraataca y causa ${danoAlRival} de daño`);
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return; // Termina el combate
+        }
         vidaRival.innerHTML = vidaDelRival;
         registrarMovimiento(`${nombreProp.innerHTML} contraataca y causa ${danoAlRival} de daño`);
-
-        // Verificar si el rival fue derrotado
-        if (vidaDelRival <= 0) {
-            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
-            return;
-        }
     }
 };
 
