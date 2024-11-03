@@ -180,6 +180,7 @@ function registrarMovimiento(mensaje) {
 }
 
 // Función de combate actualizada
+// Función de combate actualizada
 const combate = (tipoAtaque) => {
     // Obtener estadísticas
     let vidaPropia = parseInt(vidaProp.innerHTML);
@@ -192,7 +193,7 @@ const combate = (tipoAtaque) => {
     let atkRival = tipoAtaque === 'fisico' ? parseInt(atkFisRival.innerHTML) : parseInt(atkEspRival.innerHTML);
 
     let defensaRival = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
-    let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisProp.innerHTML) : parseInt(defensaEspProp.innerHTML);
+    let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
 
     // Registrar movimiento inicial del propio Pokémon
     registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
@@ -200,7 +201,12 @@ const combate = (tipoAtaque) => {
     if (velocidadPropia >= velocidadDelRival) {
         // El propio Pokémon ataca primero
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
+        
+        // Aplicar multiplicador de tipo al daño del Pokémon propio
+        const multiplicador = obtenerMultiplicador(tipo1Prop.innerHTML, tipo1Rival.innerHTML);
+        danoAlRival *= multiplicador;
         vidaDelRival -= danoAlRival;
+
         if (vidaDelRival <= 0) {
             vidaDelRival = 0;
             vidaRival.innerHTML = vidaDelRival;
@@ -213,7 +219,12 @@ const combate = (tipoAtaque) => {
 
         // Contraataque del rival
         let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+
+        // Aplicar multiplicador de tipo al daño del rival
+        const multiplicadorRival = obtenerMultiplicador(tipo1Rival.innerHTML, tipo1Prop.innerHTML);
+        danoAPropio *= multiplicadorRival;
         vidaPropia -= danoAPropio;
+
         if (vidaPropia <= 0) {
             vidaPropia = 0;
             vidaProp.innerHTML = vidaPropia;
@@ -227,7 +238,12 @@ const combate = (tipoAtaque) => {
     } else {
         // El Pokémon rival ataca primero
         let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+
+        // Aplicar multiplicador de tipo al daño del rival
+        const multiplicadorRival = obtenerMultiplicador(tipo1Rival.innerHTML, tipo1Prop.innerHTML);
+        danoAPropio *= multiplicadorRival;
         vidaPropia -= danoAPropio;
+
         if (vidaPropia <= 0) {
             vidaPropia = 0;
             vidaProp.innerHTML = vidaPropia;
@@ -240,18 +256,24 @@ const combate = (tipoAtaque) => {
 
         // El propio Pokémon ataca después del rival
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
+        
+        // Aplicar multiplicador de tipo al daño del propio Pokémon
+        const multiplicador = obtenerMultiplicador(tipo1Prop.innerHTML, tipo1Rival.innerHTML);
+        danoAlRival *= multiplicador;
         vidaDelRival -= danoAlRival;
+
         if (vidaDelRival <= 0) {
             vidaDelRival = 0;
             vidaRival.innerHTML = vidaDelRival;
-            registrarMovimiento(`${nombreProp.innerHTML} contraataca y causa ${danoAlRival} de daño`);
+            registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
             registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
             return; // Termina el combate
         }
         vidaRival.innerHTML = vidaDelRival;
-        registrarMovimiento(`${nombreProp.innerHTML} contraataca y causa ${danoAlRival} de daño`);
+        registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
     }
 };
+
 
 // Eventos para elegir el tipo de ataque
 btnElegir.addEventListener('click', obtenerPokePropio);
