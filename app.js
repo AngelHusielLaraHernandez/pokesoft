@@ -27,6 +27,8 @@ const input = document.querySelector('#input');
 const btnElegir = document.querySelector('#btn-poke');
 const btnAtkFis = document.querySelector('#btn-atk-fis');
 const btnAtkEsp = document.querySelector('#btn-atk-esp');
+const historialCombate = document.querySelector('#historialCombate');
+
 
 // Obtener Pokémon propio
 const obtenerPokePropio = () => {
@@ -169,7 +171,7 @@ const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
 //Mostrar el ganador
 
 // Elemento del historial de combate
-const historialCombate = document.querySelector('#historialCombate');
+
 
 // Función para registrar los movimientos en el historial
 function registrarMovimiento(mensaje) {
@@ -193,86 +195,103 @@ const combate = (tipoAtaque) => {
     let atkRival = tipoAtaque === 'fisico' ? parseInt(atkFisRival.innerHTML) : parseInt(atkEspRival.innerHTML);
 
     let defensaRival = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
-    let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
+    let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisProp.innerHTML) : parseInt(defensaEspProp.innerHTML);
 
-    // Registrar movimiento inicial del propio Pokémon
     registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
-    
+
     if (velocidadPropia >= velocidadDelRival) {
-        // El propio Pokémon ataca primero
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
-        
-        // Aplicar multiplicador de tipo al daño del Pokémon propio
         const multiplicador = obtenerMultiplicador(tipo1Prop.innerHTML, tipo1Rival.innerHTML);
         danoAlRival *= multiplicador;
         vidaDelRival -= danoAlRival;
 
         if (vidaDelRival <= 0) {
             vidaDelRival = 0;
-            vidaRival.innerHTML = vidaDelRival;
-            registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
-            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
-            return; // Termina el combate
         }
         vidaRival.innerHTML = vidaDelRival;
+        updateHP("poke-rival", vidaDelRival); // Actualizar barra de vida del rival
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
-        // Contraataque del rival
-        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+        if (vidaDelRival === 0) {
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return;
+        }
 
-        // Aplicar multiplicador de tipo al daño del rival
+        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
         const multiplicadorRival = obtenerMultiplicador(tipo1Rival.innerHTML, tipo1Prop.innerHTML);
         danoAPropio *= multiplicadorRival;
         vidaPropia -= danoAPropio;
 
         if (vidaPropia <= 0) {
             vidaPropia = 0;
-            vidaProp.innerHTML = vidaPropia;
-            registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
-            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
-            return; // Termina el combate
         }
         vidaProp.innerHTML = vidaPropia;
+        updateHP("poke-propio", vidaPropia); // Actualizar barra de vida del propio Pokémon
         registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
 
-    } else {
-        // El Pokémon rival ataca primero
-        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
+        if (vidaPropia === 0) {
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return;
+        }
 
-        // Aplicar multiplicador de tipo al daño del rival
+    } else {
+        let danoAPropio = Math.max(atkRival - defensaPropia, 1);
         const multiplicadorRival = obtenerMultiplicador(tipo1Rival.innerHTML, tipo1Prop.innerHTML);
         danoAPropio *= multiplicadorRival;
         vidaPropia -= danoAPropio;
 
         if (vidaPropia <= 0) {
             vidaPropia = 0;
-            vidaProp.innerHTML = vidaPropia;
-            registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
-            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
-            return; // Termina el combate
         }
         vidaProp.innerHTML = vidaPropia;
+        updateHP("poke-propio", vidaPropia); // Actualizar barra de vida del propio Pokémon
         registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
 
-        // El propio Pokémon ataca después del rival
+        if (vidaPropia === 0) {
+            registrarMovimiento(`¡${nombreRival.innerHTML} gana el combate!`);
+            return;
+        }
+
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
-        
-        // Aplicar multiplicador de tipo al daño del propio Pokémon
         const multiplicador = obtenerMultiplicador(tipo1Prop.innerHTML, tipo1Rival.innerHTML);
         danoAlRival *= multiplicador;
         vidaDelRival -= danoAlRival;
 
         if (vidaDelRival <= 0) {
             vidaDelRival = 0;
-            vidaRival.innerHTML = vidaDelRival;
-            registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
-            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
-            return; // Termina el combate
         }
         vidaRival.innerHTML = vidaDelRival;
+        updateHP("poke-rival", vidaDelRival); // Actualizar barra de vida del rival
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
+
+        if (vidaDelRival === 0) {
+            registrarMovimiento(`¡${nombreProp.innerHTML} gana el combate!`);
+            return;
+        }
     }
 };
+
+
+
+//Funciones adicionales para estetica
+
+function updateHP(pokemon, hp) {
+    const hpBar = document.querySelector(`#${pokemon} .hp-bar`);
+    const hpPercentage = (hp / 100) * 100; // Ajusta el 100 al HP máximo del Pokémon
+
+    hpBar.style.width = `${hpPercentage}%`;
+    hpBar.textContent = `${hp} HP`;
+
+    if (hpPercentage <= 25) {
+        hpBar.classList.add("low");
+        hpBar.classList.remove("medium");
+    } else if (hpPercentage <= 50) {
+        hpBar.classList.add("medium");
+        hpBar.classList.remove("low");
+    } else {
+        hpBar.classList.remove("low", "medium");
+    }
+}
 
 
 // Eventos para elegir el tipo de ataque
