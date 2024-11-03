@@ -85,6 +85,19 @@ const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
     return 1; // Sin modificación de daño si el tipo no se encuentra
 };
 
+//Combate, el pokemon perdedor será el que se le acabe primero su vida.
+//El usuario deberá elegir si ocupa ataque fisico o especial, según lo elegido los pokemon usarán su defensa especial o defensa fisica para bloquear los ataques
+//La defensa especial o fisica del pokemon que recibe el ataque sera restada del ataque especial o fisico del pokemon atacante, la diferencia será restada a la vida del pokemon defensor
+//En caso de que el resultado de la resta sea negativo o cero, se va a dejar un 1 como el resultado minimo de la resta
+//El pokemon que tenga más velocidad va a pegar primero
+//Se debe de aplicar la tabla de tipos al resultado de la resta de defensa y ataque, pero solo en daño, no en resitencias
+//Ejemplo poke1AtaqueFisico = 56;
+// poke2Defensafisica = 35; poke2vida = 98;
+// DañoRecibido = poke1AtaqueFisico - poke2DefensaFisica;
+//poke2VidaRestante = poke2Vida - DañoRecibido;
+//Se turnarán los pokemon hasta que haya un ganador
+//Mostrar el ganador
+
 // Función de combate
 const combate = (tipoAtaque) => {
     // Obtener estadísticas
