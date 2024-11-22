@@ -1,3 +1,40 @@
+const frases = {
+    tu: [
+        "¡Vamos a ganar!",
+        "¡Este es nuestro momento!",
+        "¡No te detengas ahora!",
+        "¡A por todas!",
+        "¡Usa tu mejor ataque!",
+        "¡Eres el mejor!",
+        "¡Podemos hacerlo!",
+        "¡Lucha con todo!",
+        "¡Esto es épico!",
+        "¡Confío en ti!",
+        "¡Vamos con todo!",
+        "¡No te rindas!",
+        "¡Es nuestra oportunidad!",
+        "¡Sigue luchando!",
+        "¡Hazlo increíble!"
+    ],
+    rival: [
+        "¡No será tan fácil!",
+        "¡Prepárate para perder!",
+        "¡Te lo pondré difícil!",
+        "¡No subestimes mi equipo!",
+        "¡Vas a lamentarlo!",
+        "¡Dame tu mejor ataque!",
+        "¡Esto apenas comienza!",
+        "¡No puedes vencerme!",
+        "¡Es mi turno de brillar!",
+        "¡Esto será emocionante!",
+        "¡Voy a ganar este combate!",
+        "¡No me derrotarás!",
+        "¡Te mostraré mi poder!",
+        "¡Es hora de pelear en serio!",
+        "¡No te lo pondré fácil!"
+    ]
+};
+
 //Atributos del Pokémon rival
 const imgRival = document.querySelector('#pokeRival');
 const nombreRival = document.querySelector('#nombreRival');
@@ -28,6 +65,8 @@ const btnElegir = document.querySelector('#btn-poke');
 const btnAtkFis = document.querySelector('#btn-atk-fis');
 const btnAtkEsp = document.querySelector('#btn-atk-esp');
 const historialCombate = document.querySelector('#historialCombate');
+
+
 
 
 // Obtener Pokémon propio
@@ -172,7 +211,6 @@ const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
 
 // Elemento del historial de combate
 
-
 // Función para registrar los movimientos en el historial
 function registrarMovimiento(mensaje) {
     const movimiento = document.createElement('p');
@@ -181,10 +219,22 @@ function registrarMovimiento(mensaje) {
     historialCombate.scrollTop = historialCombate.scrollHeight; // Desplaza hacia el último movimiento
 }
 
-// Función de combate actualizada
-// Función de combate actualizada
+
+const obtenerFraseAleatoria = (hablante) => {
+    
+    const frasesHablante = frases[hablante];
+    if (!frasesHablante) return '...';
+    return frasesHablante[Math.floor(Math.random() * frasesHablante.length)];
+};
+
+const agregarAlHistorial = (hablante, frase) => {
+    const historialCombate = document.querySelector('#historialCombate');
+    const nuevaLinea = document.createElement('p');
+    nuevaLinea.textContent = `${hablante}: "${frase}"`;
+    historialCombate.appendChild(nuevaLinea);
+};
 const combate = (tipoAtaque) => {
-    // Obtener estadísticas
+
     let vidaPropia = parseInt(vidaProp.innerHTML);
     let vidaDelRival = parseInt(vidaRival.innerHTML);
 
@@ -209,7 +259,9 @@ const combate = (tipoAtaque) => {
             vidaDelRival = 0;
         }
         vidaRival.innerHTML = vidaDelRival;
-        updateHP("poke-rival", vidaDelRival); // Actualizar barra de vida del rival
+        updateHP("poke-rival", vidaDelRival);
+        const fraseJugador = obtenerFraseAleatoria('tu');
+        agregarAlHistorial('Tú', fraseJugador);
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
         if (vidaDelRival === 0) {
@@ -226,7 +278,9 @@ const combate = (tipoAtaque) => {
             vidaPropia = 0;
         }
         vidaProp.innerHTML = vidaPropia;
-        updateHP("poke-propio", vidaPropia); // Actualizar barra de vida del propio Pokémon
+        updateHP("poke-propio", vidaPropia);
+        const fraseRival = obtenerFraseAleatoria('rival');
+        agregarAlHistorial('Rival', fraseRival);
         registrarMovimiento(`${nombreRival.innerHTML} contraataca y causa ${danoAPropio} de daño`);
 
         if (vidaPropia === 0) {
@@ -244,7 +298,9 @@ const combate = (tipoAtaque) => {
             vidaPropia = 0;
         }
         vidaProp.innerHTML = vidaPropia;
-        updateHP("poke-propio", vidaPropia); // Actualizar barra de vida del propio Pokémon
+        updateHP("poke-propio", vidaPropia);
+        const fraseRival = obtenerFraseAleatoria('rival');
+        agregarAlHistorial('Rival', fraseRival);
         registrarMovimiento(`${nombreRival.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'} y causa ${danoAPropio} de daño`);
 
         if (vidaPropia === 0) {
@@ -261,7 +317,9 @@ const combate = (tipoAtaque) => {
             vidaDelRival = 0;
         }
         vidaRival.innerHTML = vidaDelRival;
-        updateHP("poke-rival", vidaDelRival); // Actualizar barra de vida del rival
+        updateHP("poke-rival", vidaDelRival);
+        const fraseJugador = obtenerFraseAleatoria('tu');
+        agregarAlHistorial('Tú', fraseJugador);
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
         if (vidaDelRival === 0) {
@@ -270,7 +328,6 @@ const combate = (tipoAtaque) => {
         }
     }
 };
-
 
 
 //Funciones adicionales para estetica
