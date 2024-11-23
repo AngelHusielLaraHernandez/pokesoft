@@ -352,6 +352,44 @@ function updateHP(pokemon, hp) {
     }
 }
 
+// Agregar el evento al botón de reinicio
+const btnReiniciar = document.querySelector('#btn-reiniciar');
+
+// Función para reiniciar el combate
+const reiniciarCombate = () => {
+    // Limpiar el historial de combate
+    historialCombate.innerHTML = '';
+
+    // Reiniciar los atributos de los Pokémon
+    imgProp.src = '';
+    nombreProp.innerHTML = '';
+    tipo1Prop.innerHTML = '';
+    tipo2Prop.innerHTML = '';
+    atkFisProp.innerHTML = '';
+    atkEspProp.innerHTML = '';
+    vidaProp.innerHTML = '';
+    defensaFisProp.innerHTML = '';
+    defensaEspProp.innerHTML = '';
+    velocidadProp.innerHTML = '';
+
+    imgRival.src = '';
+    nombreRival.innerHTML = '';
+    tipo1Rival.innerHTML = '';
+    tipo2Rival.innerHTML = '';
+    atkFisRival.innerHTML = '';
+    atkEspRival.innerHTML = '';
+    vidaRival.innerHTML = '';
+    defensaFisRival.innerHTML = '';
+    defensaEspRival.innerHTML = '';
+    velocidadRival.innerHTML = '';
+    obtenerPokeRival();
+    updateHP("poke-rival", 100);
+    updateHP("poke-propio", 100);
+    input.value = '';  // Limpiar el campo de entrada del Pokémon
+};
+
+// Asignar la función al botón de reiniciar
+btnReiniciar.addEventListener('click', reiniciarCombate);
 
 // Eventos para elegir el tipo de ataque
 btnElegir.addEventListener('click', obtenerPokePropio);
