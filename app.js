@@ -260,8 +260,8 @@ const combate = (tipoAtaque) => {
         vidaRival.innerHTML = vidaDelRival;
         updateHP("poke-rival", vidaDelRival);
         const fraseJugador = obtenerFraseAleatoria('tu');
-        registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
         agregarAlHistorial('Tú', fraseJugador);
+        registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
         if (vidaDelRival === 0) {
