@@ -213,10 +213,12 @@ const obtenerMultiplicador = (tipoAtaque, tipoRival) => {
 
 // Función para registrar los movimientos en el historial
 function registrarMovimiento(mensaje) {
+    const historialCombate = document.getElementById('historialCombate');
     const movimiento = document.createElement('p');
     movimiento.textContent = mensaje;
     historialCombate.appendChild(movimiento);
-    historialCombate.scrollTop = historialCombate.scrollHeight; // Desplaza hacia el último movimiento
+    // Desplaza automáticamente al final del historial
+    historialCombate.scrollTop = historialCombate.scrollHeight;
 }
 
 

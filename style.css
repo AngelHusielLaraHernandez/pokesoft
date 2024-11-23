@@ -49,7 +49,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin-left: 80px;
-    margin-top: -285px; /* Mueve hacia arriba */
+    margin-top: -372px; /* Mueve hacia arriba */
 }
 
 .hp-bar-container {
@@ -103,13 +103,20 @@ body {
 
 
 #UI {
-    height: 10%;
-    width: 100%;
+    /*position: fixed;*/
+    height: 175%;
+    width: 108%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: -68px;
 }
+
+#historialCombate {
+    max-height: 150px; /* Limita la altura para activar el scroll */
+    overflow-y: auto; /* Habilita el scroll vertical */
+}
+
 
 /*
 .arena {
