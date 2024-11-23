@@ -4,11 +4,17 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow-y: auto;
 }
 
 .stats-container {
+<<<<<<< Updated upstream
     display: flex;
+=======
+    width: 1000px;
+    height: auto;
+>>>>>>> Stashed changes
     justify-content: space-between;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
@@ -73,7 +79,7 @@ body {
 
 #pokeProp {
     position: absolute;
-    bottom: 11%;
+    bottom: 1%;
     left: 36%;
     width: 12%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
@@ -81,9 +87,15 @@ body {
 
 #pokeRival {
     position: absolute;
+<<<<<<< Updated upstream
     bottom: 38%;
     right: 37%;
     width: 13%; /* Ajusta el tamaño según el Pokémon */
+=======
+    bottom: 30%;
+    right: 30%;
+    width: 18%; /* Ajusta el tamaño según el Pokémon */
+>>>>>>> Stashed changes
     z-index: 1;
 }
 
