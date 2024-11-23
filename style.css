@@ -12,7 +12,10 @@ body {
     height: 1000px;
     justify-content: space-between;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0); /* Fondo semitransparente */
+    /*background-color: rgba(0, 0, 0, 0);  Fondo semitransparente */
+    background-image: url('./fondo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
     box-sizing: border-box;
 }
@@ -73,18 +76,18 @@ body {
     margin-top: 10px;
 }
 
-
+/*
 .arena {
     display: flex;
     height: 100%;
     background-image: url('./fondo.png');
     background-repeat: no-repeat;
-    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
-    background-position: center; /* Centra la imagen */
+    background-size: contain; /* Ajusta la imagen al tamaño del contenedor 
+    background-position: center;  Centra la imagen 
     position: relative;
     justify-content: center;
     align-items: center;
-}
+}*/
 
 #pokeProp {
     position: absolute;
