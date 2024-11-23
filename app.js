@@ -234,7 +234,7 @@ const agregarAlHistorial = (hablante, frase) => {
     historialCombate.appendChild(nuevaLinea);
 };
 const combate = (tipoAtaque) => {
-
+    /* EXTRAEMOS LOS ATRIBUTOS DE LA DDM */
     let vidaPropia = parseInt(vidaProp.innerHTML);
     let vidaDelRival = parseInt(vidaRival.innerHTML);
 
@@ -247,8 +247,7 @@ const combate = (tipoAtaque) => {
     let defensaRival = tipoAtaque === 'fisico' ? parseInt(defensaFisRival.innerHTML) : parseInt(defensaEspRival.innerHTML);
     let defensaPropia = tipoAtaque === 'fisico' ? parseInt(defensaFisProp.innerHTML) : parseInt(defensaEspProp.innerHTML);
 
-    registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
-
+    /* LOGICA PARA COMBATE DE POKE PROPIO */
     if (velocidadPropia >= velocidadDelRival) {
         let danoAlRival = Math.max(atkPropio - defensaRival, 1);
         const multiplicador = obtenerMultiplicador(tipo1Prop.innerHTML, tipo1Rival.innerHTML);
@@ -261,6 +260,7 @@ const combate = (tipoAtaque) => {
         vidaRival.innerHTML = vidaDelRival;
         updateHP("poke-rival", vidaDelRival);
         const fraseJugador = obtenerFraseAleatoria('tu');
+        registrarMovimiento(`${nombreProp.innerHTML} usa ${tipoAtaque === 'fisico' ? 'Ataque Físico' : 'Ataque Especial'}`);
         agregarAlHistorial('Tú', fraseJugador);
         registrarMovimiento(`¡Golpe efectivo! ${nombreRival.innerHTML} recibe ${danoAlRival} de daño`);
 
@@ -288,7 +288,7 @@ const combate = (tipoAtaque) => {
             return;
         }
 
-    } else {
+    } else { /* LOGICA PARA COMBATE DE POKE RIVAL */
         let danoAPropio = Math.max(atkRival - defensaPropia, 1);
         const multiplicadorRival = obtenerMultiplicador(tipo1Rival.innerHTML, tipo1Prop.innerHTML);
         danoAPropio *= multiplicadorRival;
