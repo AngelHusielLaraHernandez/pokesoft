@@ -8,10 +8,11 @@ body {
 }
 
 .stats-container {
-    display: flex;
+    width: 1000px;
+    height: 1000px;
     justify-content: space-between;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    background-color: rgba(0, 0, 0, 0); /* Fondo semitransparente */
     width: 100%;
     box-sizing: border-box;
 }
@@ -19,11 +20,24 @@ body {
 .stats {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
+}
+
+.stats#poke-rival{
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    align-items: flex-end;
+}
+
+.stats#poke-propio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .hp-bar-container {
-    width: 100%;
+    width: 10%;
     height: 15px;
     background-color: #ddd;
     border-radius: 8px;
@@ -59,12 +73,13 @@ body {
     margin-top: 10px;
 }
 
+
 .arena {
     display: flex;
-    height: 60%;
+    height: 100%;
     background-image: url('./fondo.png');
     background-repeat: no-repeat;
-    background-size: contain; /* Ajusta la imagen al tamaño del contenedor */
+    background-size: cover; /* Ajusta la imagen al tamaño del contenedor */
     background-position: center; /* Centra la imagen */
     position: relative;
     justify-content: center;
@@ -75,21 +90,22 @@ body {
     position: absolute;
     bottom: 11%;
     left: 36%;
-    width: 12%; /* Ajusta el tamaño según el Pokémon */
+    width: 18%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
 }
 
 #pokeRival {
     position: absolute;
     bottom: 38%;
-    right: 37%;
-    width: 13%; /* Ajusta el tamaño según el Pokémon */
+    right: 30%;
+    width: 18%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
 }
 
 .combat-log {
-    width: 30%;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
     margin: 0 20px;
     text-align: center;
