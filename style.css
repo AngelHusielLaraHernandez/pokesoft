@@ -13,7 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .stats-container {
@@ -133,7 +133,7 @@ body {
 
 #pokeProp {
     position: absolute;
-    bottom: 5%;
+    bottom: 11%;
     left: 36%;
     width: 18%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
@@ -141,7 +141,7 @@ body {
 
 #pokeRival {
     position: absolute;
-    bottom: 32%;
+    bottom: 38%;
     right: 30%;
     width: 18%; /* Ajusta el tamaño según el Pokémon */
     z-index: 1;
