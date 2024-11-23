@@ -35,6 +35,15 @@ const frases = {
     ]
 };
 
+const canciones=[
+    "cancion1.mp3",
+    "cancion2.mp3",
+    "cancion3.mp3",
+    "cancion4.mp3",
+    "cancion5.mp3",
+    "cancion6.mp3"
+];
+
 //Atributos del Pokémon rival
 const imgRival = document.querySelector('#pokeRival');
 const nombreRival = document.querySelector('#nombreRival');
@@ -65,7 +74,6 @@ const btnElegir = document.querySelector('#btn-poke');
 const btnAtkFis = document.querySelector('#btn-atk-fis');
 const btnAtkEsp = document.querySelector('#btn-atk-esp');
 const historialCombate = document.querySelector('#historialCombate');
-
 
 
 
@@ -388,6 +396,13 @@ const reiniciarCombate = () => {
     input.value = '';  // Limpiar el campo de entrada del Pokémon
 };
 
+// Escoge una canion aleatoria del arreglo "canciones"
+const reproducirMusica = () =>{
+    let cancion = canciones[Math.floor(Math.random()*canciones.length)];
+    const audio = new Audio(cancion);
+    audio.play();
+};
+
 // Asignar la función al botón de reiniciar
 btnReiniciar.addEventListener('click', reiniciarCombate);
 
@@ -398,3 +413,6 @@ btnAtkEsp.addEventListener('click', () => combate('especial'));
 
 // Cargar Pokémon rival automáticamente al iniciar
 window.addEventListener('load', obtenerPokeRival);
+
+//Cargar la música automáticamente al iniciar
+window.addEventListener('load', reproducirMusica);
